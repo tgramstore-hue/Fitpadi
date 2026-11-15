@@ -26,7 +26,7 @@ export default function ImpactPage() {
         <div className="w" style={{ maxWidth: '900px' }}>
           <span className="eb">FitPadi Health Fund</span>
           <h1 style={{ fontSize: 'clamp(34px, 5vw, 56px)' }}>
-            A planned $10 million fund to reward healthy living in Nigeria
+            A planned $500 million fund to reward healthy living in Nigeria
           </h1>
           <p className="lead" style={{ maxWidth: '720px' }}>
             According to United Nations estimates, life expectancy at birth in Nigeria is around 55 years, compared with a global average of about 73. FitPadi rewards the everyday habits that support better health: walking, learning, eating well and staying active.
@@ -106,7 +106,7 @@ export default function ImpactPage() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px', fontSize: '14px' }} className="muted">
               <span>$0</span>
-              <span>$10,000,000</span>
+              <span>${f.pool.toLocaleString()}</span>
             </div>
           </div>
         </div>

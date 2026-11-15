@@ -87,7 +87,7 @@ export default function HomePage() {
             <div style={{ maxWidth: '620px' }}>
               <span className="eb">New · FitPadi Health Fund</span>
               <h3 style={{ fontSize: '26px' }}>
-                A planned $10 million fund to reward healthy living in Nigeria
+                A planned $500 million fund to reward healthy living in Nigeria
               </h3>
               <p className="muted" style={{ marginTop: '6px', fontSize: '16px' }}>
                 See how the fund works and how rewards will be shared.

@@ -446,9 +446,9 @@ export const ART = [
 ];
 export const FUND = {
   "sample": true,
-  "pool": 10000000,
-  "paid": 1284650,
-  "members": 48210
+  "pool": 500000000,
+  "paid": 18420000,
+  "members": 148210
 };
 export const SCN = [
   "walk",
@@ -681,80 +681,160 @@ export const DAYS = [
 ];
 export const LB = {
   "friends": [
-    [
-      "Amara O.",
-      "NG",
-      2840
-    ],
-    [
-      "Tunde B.",
-      "NG",
-      2610
-    ],
-    [
-      "David (you)",
-      "NG",
-      2450
-    ],
-    [
-      "Ife A.",
-      "NG",
-      1980
-    ]
+    ["Tunde B.", "NG", 3140],
+    ["Amara O.", "NG", 2980],
+    ["Ife A.", "NG", 2690],
+    ["David (you)", "NG", 2450],
+    ["Kemi L.", "NG", 2280],
+    ["Femi D.", "NG", 2150],
+    ["Zainab M.", "NG", 2040],
+    ["Chuka N.", "NG", 1980],
+    ["Blessing K.", "NG", 1920],
+    ["Dapo S.", "NG", 1860],
+    ["Funmi R.", "NG", 1810],
+    ["Emeka V.", "NG", 1750],
+    ["Halima Y.", "NG", 1700],
+    ["Sadiq T.", "NG", 1640],
+    ["Toyin P.", "NG", 1590],
+    ["Uche G.", "NG", 1540],
+    ["Nneka W.", "NG", 1500],
+    ["Segun J.", "NG", 1460],
+    ["Chioma H.", "NG", 1420],
+    ["Ibrahim Q.", "NG", 1380],
+    ["Gbenga L.", "NG", 1340],
+    ["Yetunde K.", "NG", 1310],
+    ["Kalu E.", "NG", 1280],
+    ["Amina C.", "NG", 1250],
+    ["Victor B.", "NG", 1220],
+    ["Precious M.", "NG", 1190],
+    ["Oluwaseun A.", "NG", 1160],
+    ["Ebele F.", "NG", 1130],
+    ["Rotimi O.", "NG", 1100],
+    ["Nafisa S.", "NG", 1080],
+    ["Bose T.", "NG", 1050],
+    ["Jide W.", "NG", 1020],
+    ["Peace N.", "NG", 990],
+    ["Yusuf K.", "NG", 970],
+    ["Bukola R.", "NG", 940],
+    ["Ebuka Z.", "NG", 920],
+    ["Titi V.", "NG", 900],
+    ["Hauwa G.", "NG", 880],
+    ["Kayode L.", "NG", 860],
+    ["Omolara P.", "NG", 840],
+    ["Kelechi J.", "NG", 820],
+    ["Fatima D.", "NG", 800],
+    ["Wale H.", "NG", 780],
+    ["Chidera B.", "NG", 760],
+    ["Simi O.", "NG", 740],
+    ["Abubakar M.", "NG", 720],
+    ["Folake T.", "NG", 700],
+    ["Nonso K.", "NG", 680],
+    ["Aisha Y.", "NG", 660],
+    ["Lanre E.", "NG", 640]
   ],
   "country": [
-    [
-      "Amara O.",
-      "NG",
-      2840
-    ],
-    [
-      "Chidi E.",
-      "NG",
-      2700
-    ],
-    [
-      "Tunde B.",
-      "NG",
-      2610
-    ],
-    [
-      "Ngozi U.",
-      "NG",
-      2490
-    ],
-    [
-      "David (you)",
-      "NG",
-      2450
-    ]
+    ["Amara O.", "NG", 4120],
+    ["Chidi E.", "NG", 3980],
+    ["Tunde B.", "NG", 3810],
+    ["Ngozi U.", "NG", 3640],
+    ["Babatunde A.", "NG", 3490],
+    ["Folashade K.", "NG", 3350],
+    ["Ikenna M.", "NG", 3210],
+    ["David (you)", "NG", 2450],
+    ["Amina S.", "NG", 2410],
+    ["Chinedu V.", "NG", 2370],
+    ["Osas I.", "NG", 2320],
+    ["Damilola B.", "NG", 2280],
+    ["Emeka N.", "NG", 2240],
+    ["Khadija M.", "NG", 2200],
+    ["Adekunle F.", "NG", 2160],
+    ["Grace E.", "NG", 2120],
+    ["Olatunji P.", "NG", 2080],
+    ["Chinwe H.", "NG", 2040],
+    ["Umar G.", "NG", 2000],
+    ["Yetunde R.", "NG", 1960],
+    ["Ifeanyi J.", "NG", 1920],
+    ["Zainab D.", "NG", 1880],
+    ["Femi S.", "NG", 1840],
+    ["Blessing O.", "NG", 1800],
+    ["Abubakar L.", "NG", 1760],
+    ["Nkechi T.", "NG", 1720],
+    ["Segun W.", "NG", 1680],
+    ["Halima K.", "NG", 1650],
+    ["Efe Q.", "NG", 1620],
+    ["Ronke Z.", "NG", 1590],
+    ["Obinna B.", "NG", 1560],
+    ["Maryam A.", "NG", 1530],
+    ["Kunle P.", "NG", 1500],
+    ["Anuoluwapo S.", "NG", 1470],
+    ["Jubril H.", "NG", 1440],
+    ["Tope E.", "NG", 1410],
+    ["Somto C.", "NG", 1380],
+    ["Rukayat F.", "NG", 1350],
+    ["Stanley O.", "NG", 1320],
+    ["Adaobi N.", "NG", 1290],
+    ["Musa V.", "NG", 1260],
+    ["Olayinka G.", "NG", 1230],
+    ["Kelechi R.", "NG", 1200],
+    ["Habiba J.", "NG", 1170],
+    ["Wole M.", "NG", 1140],
+    ["Chiamaka K.", "NG", 1110],
+    ["Mustapha T.", "NG", 1080],
+    ["Bimbo L.", "NG", 1050],
+    ["Sunday D.", "NG", 1020],
+    ["Eniola Y.", "NG", 990]
   ],
   "global": [
-    [
-      "Amara O.",
-      "NG",
-      2840
-    ],
-    [
-      "Kwame A.",
-      "GH",
-      2760
-    ],
-    [
-      "Thandi M.",
-      "ZA",
-      2655
-    ],
-    [
-      "Etienne N.",
-      "CM",
-      2510
-    ],
-    [
-      "David (you)",
-      "NG",
-      2450
-    ]
+    ["Amara O.", "NG", 4920],
+    ["Kwame A.", "GH", 4780],
+    ["Thandi M.", "ZA", 4610],
+    ["Marcus S.", "GB", 4420],
+    ["Elena R.", "ES", 4310],
+    ["Kofi B.", "GH", 4190],
+    ["Chloe D.", "CA", 4050],
+    ["Wanjiru N.", "KE", 3910],
+    ["Liam P.", "US", 3790],
+    ["Fatou C.", "SN", 3660],
+    ["Mateo G.", "MX", 3520],
+    ["Tariq H.", "AE", 3390],
+    ["Nia J.", "JM", 3250],
+    ["David (you)", "NG", 2450],
+    ["Lucas V.", "BR", 2420],
+    ["Zola K.", "ZA", 2390],
+    ["Hassan E.", "EG", 2360],
+    ["Aaliyah W.", "US", 2320],
+    ["Oumar T.", "CI", 2280],
+    ["Siddharth P.", "IN", 2250],
+    ["Yuki T.", "JP", 2210],
+    ["Chidi E.", "NG", 2180],
+    ["Hannah M.", "DE", 2140],
+    ["Tunde B.", "NG", 2100],
+    ["Ingrid O.", "NO", 2060],
+    ["Dmitri K.", "PL", 2020],
+    ["Amina S.", "KE", 1980],
+    ["Gabriel F.", "FR", 1940],
+    ["Moussa D.", "ML", 1900],
+    ["Siti N.", "MY", 1860],
+    ["Carlos M.", "CO", 1820],
+    ["Lindiwe Z.", "ZA", 1780],
+    ["Arthur L.", "GB", 1740],
+    ["Ngozi U.", "NG", 1700],
+    ["Jian W.", "CN", 1660],
+    ["Farida B.", "DZ", 1620],
+    ["Noah B.", "AU", 1580],
+    ["Salma A.", "MA", 1540],
+    ["Etienne N.", "CM", 1500],
+    ["Beatriz R.", "PT", 1460],
+    ["Bakary C.", "GM", 1420],
+    ["Oliver H.", "NZ", 1380],
+    ["Awa S.", "SN", 1340],
+    ["Milan J.", "RS", 1300],
+    ["Nuru M.", "TZ", 1260],
+    ["Freja E.", "SE", 1220],
+    ["Mireille K.", "RW", 1180],
+    ["Santiago C.", "AR", 1140],
+    ["Tendai C.", "ZW", 1100],
+    ["Finn O.", "IE", 1060]
   ]
 };
 export const MS = [
@@ -803,14 +883,188 @@ export const LES = [
   "Cool-down and review"
 ];
 export const LIB = [
-  "High knees",
-  "Push-ups",
-  "Lunges",
-  "Cat-cow stretch",
-  "Arm circles",
-  "Cobra stretch",
-  "Mountain climbers",
-  "Glute bridges"
+  [
+    "High knees",
+    "Beginner",
+    "Full Body",
+    "Hip flexors, quads & cardio",
+    [
+      "Stand tall with feet hip-width apart and arms bent at 90 degrees.",
+      "Drive one knee up toward your chest while pumping the opposite arm.",
+      "Quickly switch legs on the balls of your feet in a fluid running motion.",
+      "Maintain an upright posture and engage your core throughout."
+    ],
+    "40s",
+    "act"
+  ],
+  [
+    "Push-ups",
+    "Beginner",
+    "Upper Body",
+    "Chest, triceps & shoulders",
+    [
+      "Start in a high plank position with hands slightly wider than shoulder-width.",
+      "Lower your chest until elbows are at a 90-degree angle, keeping elbows tucked at 45 degrees.",
+      "Press through your palms to return to the starting plank position.",
+      "Keep your core tight and body in a straight line from head to heels."
+    ],
+    "40s",
+    "dumb"
+  ],
+  [
+    "Bodyweight squats",
+    "Beginner",
+    "Lower Body",
+    "Quads, glutes & hamstrings",
+    [
+      "Stand with feet shoulder-width apart, toes pointing slightly outward.",
+      "Hinge hips backward and bend knees as if sitting back into an invisible chair.",
+      "Lower until your thighs are parallel to the floor, chest kept upright.",
+      "Drive through your heels to return to standing, squeezing glutes at the top."
+    ],
+    "40s",
+    "act"
+  ],
+  [
+    "Plank hold",
+    "Beginner",
+    "Core",
+    "Abs, obliques & deep stabilizers",
+    [
+      "Place forearms on the floor with elbows directly beneath your shoulders.",
+      "Extend legs straight behind you, resting on the balls of your feet.",
+      "Engage your glutes, brace your core, and avoid sagging or arching your lower back.",
+      "Breathe steadily while holding the position."
+    ],
+    "30s",
+    "shield"
+  ],
+  [
+    "Lunges",
+    "Beginner",
+    "Lower Body",
+    "Quads, glutes & calves",
+    [
+      "Stand upright with hands on your hips or chest.",
+      "Step forward with your right leg and lower hips until both knees are bent at 90 degrees.",
+      "Ensure your front knee does not track past your front toes.",
+      "Push off the front heel to return to standing, then switch legs."
+    ],
+    "40s",
+    "act"
+  ],
+  [
+    "Jumping jacks",
+    "Beginner",
+    "Full Body",
+    "Full body & cardiovascular endurance",
+    [
+      "Stand with feet together and arms resting at your sides.",
+      "Jump feet outward while raising arms overhead in a smooth circular arc.",
+      "Quickly jump feet back together while bringing arms down to your sides.",
+      "Land softly on the balls of your feet with knees slightly bent."
+    ],
+    "40s",
+    "flame"
+  ],
+  [
+    "Mountain climbers",
+    "Intermediate",
+    "Full Body",
+    "Core, shoulders & cardio",
+    [
+      "Assume a solid high plank position with wrists beneath shoulders.",
+      "Drive your right knee forward toward your chest without touching the floor.",
+      "Rapidly switch legs, extending the right back while bringing the left knee forward.",
+      "Keep your hips level and maintain a quick, controlled cadence."
+    ],
+    "40s",
+    "flame"
+  ],
+  [
+    "Burpees",
+    "Advanced",
+    "Full Body",
+    "Full body power & high-intensity cardio",
+    [
+      "Stand upright, then drop into a squat and place hands flat on the floor.",
+      "Kick your feet back into a push-up position and perform a controlled chest drop.",
+      "Press up quickly, jump feet back to your hands, and leap vertically with arms raised.",
+      "Land softly and immediately transition into the next repetition."
+    ],
+    "40s",
+    "flame"
+  ],
+  [
+    "Glute bridges",
+    "Beginner",
+    "Lower Body",
+    "Glutes, hamstrings & lower back",
+    [
+      "Lie flat on your back with knees bent and feet flat on the floor hip-width apart.",
+      "Press through your heels to raise your hips until knees, hips, and shoulders form a line.",
+      "Squeeze your glutes tightly at the apex for 1-2 seconds.",
+      "Slowly lower hips back to the mat with control."
+    ],
+    "40s",
+    "heart"
+  ],
+  [
+    "Bicycle crunches",
+    "Intermediate",
+    "Core",
+    "Abs & obliques",
+    [
+      "Lie on your back with hands lightly supporting your head and legs elevated.",
+      "Bring your right elbow toward your left knee while extending the right leg straight out.",
+      "Alternate sides in a smooth, continuous pedaling motion.",
+      "Avoid pulling on your neck; focus on rotating through your torso."
+    ],
+    "40s",
+    "act"
+  ],
+  [
+    "Cat-cow stretch",
+    "Beginner",
+    "Core",
+    "Spine mobility, neck & torso",
+    [
+      "Begin on hands and knees with wrists under shoulders and knees under hips.",
+      "Inhale, arch your back downward, and lift your gaze towards the ceiling (Cow).",
+      "Exhale, round your spine upward toward the sky, and tuck your chin to your chest (Cat).",
+      "Move smoothly with your breath through 8-10 cycles."
+    ],
+    "30s",
+    "heart"
+  ],
+  [
+    "Arm circles",
+    "Beginner",
+    "Upper Body",
+    "Shoulders, rotator cuff & upper back",
+    [
+      "Stand tall with feet shoulder-width apart and arms extended straight out to the sides.",
+      "Make small, controlled forward circles with your arms for 20 seconds.",
+      "Reverse direction and make backward circles for another 20 seconds.",
+      "Keep shoulder blades down and relaxed throughout."
+    ],
+    "40s",
+    "dumb"
+  ],
+  [
+    "Cobra stretch",
+    "Beginner",
+    "Upper Body",
+    "Chest, abdominal wall & spine",
+    [
+      "Lie face down on the floor with palms beneath your shoulders.",
+      "Gently press into your hands, lifting your chest while keeping hips grounded.",
+      "Draw shoulders away from your ears and open your collarbones.",
+      "Hold for 15-20 seconds with calm, steady breathing."
+    ],
+    "30s",
+    "heart"
+  ]
 ];
 export const QZ = [
   [
