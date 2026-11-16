@@ -32,14 +32,14 @@ export default function ActivitiesPage() {
   const [breathDuration, setBreathDuration] = useState(60); // 60, 180, 300
   const [breathRemaining, setBreathRemaining] = useState(60);
   const [breathActive, setBreathActive] = useState(false);
-  const [breathPhase, setBreathPhase] = useState('Ready'); // 'Inhale', 'Hold', 'Exhale', 'Ready'
+  const [breathPhase, setBreathPhase] = useState('Ready'); // 'Inhale...', 'Hold breath...', 'Exhale slowly...', 'Ready'
   const breathTimerRef = useRef(null);
 
   // Exercise Library State
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
 
-  const categories = ['All', 'Full Body', 'Lower Body', 'Upper Body', 'Core'];
+  const categories = ['All', 'Full Body', 'Upper Body', 'Lower Body', 'Core'];
 
   // Walking Live Session Timer
   useEffect(() => {
@@ -126,7 +126,7 @@ export default function ActivitiesPage() {
     return () => {
       if (breathTimerRef.current) clearInterval(breathTimerRef.current);
     };
-  }, [breathActive, breathDuration]);
+  }, [breathActive, breathDuration, setPoints, showToast]);
 
   const selectBreathDuration = (dur) => {
     setBreathDuration(dur);
@@ -175,61 +175,102 @@ export default function ActivitiesPage() {
 
   return (
     <div className="gr">
-      {/* 4 KPI Top Cards with authentic brand colors */}
-      <div className="kp s3" style={{ '--c': '#2563EB' }}>
-        <span className="ki">
-          <SvgIcon name="act" size={22} />
-        </span>
-        <div>
-          <small>Total Steps</small>
-          <b>{steps.toLocaleString()}</b>
-          <em>{progressPercent}% of {goal.toLocaleString()} goal</em>
+      {/* 4 Top KPI Cards using modern card pattern & flat saturated squircles */}
+      <div className="card-box s3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="flat-sq sq-blue">
+            <SvgIcon name="act" size={24} />
+          </div>
+          <div>
+            <div className="sec-label">TOTAL STEPS</div>
+            <b style={{ fontSize: '24px', display: 'block', letterSpacing: '-0.02em' }}>
+              {steps.toLocaleString()}
+            </b>
+            <small className="muted" style={{ fontSize: '12px' }}>
+              {progressPercent}% of {goal.toLocaleString()} goal
+            </small>
+          </div>
         </div>
       </div>
 
-      <div className="kp s3" style={{ '--c': '#16A34A' }}>
-        <span className="ki">
-          <SvgIcon name="clock" size={22} />
-        </span>
-        <div>
-          <small>Active Movement</small>
-          <b>{activeMins} min</b>
-          <em>Target: 30 min / day</em>
+      <div className="card-box s3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="flat-sq sq-green">
+            <SvgIcon name="clock" size={24} />
+          </div>
+          <div>
+            <div className="sec-label">ACTIVE MOVEMENT</div>
+            <b style={{ fontSize: '24px', display: 'block', letterSpacing: '-0.02em' }}>
+              {activeMins} min
+            </b>
+            <small className="muted" style={{ fontSize: '12px' }}>Target: 30 min / day</small>
+          </div>
         </div>
       </div>
 
-      <div className="kp s3" style={{ '--c': '#EF5A3C' }}>
-        <span className="ki">
-          <SvgIcon name="flame" size={22} />
-        </span>
-        <div>
-          <small>Estimated Burn</small>
-          <b>{caloriesBurned} kcal</b>
-          <em>Active caloric expenditure</em>
+      <div className="card-box s3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="flat-sq sq-orange">
+            <SvgIcon name="flame" size={24} />
+          </div>
+          <div>
+            <div className="sec-label">ESTIMATED BURN</div>
+            <b style={{ fontSize: '24px', display: 'block', letterSpacing: '-0.02em' }}>
+              {caloriesBurned} kcal
+            </b>
+            <small className="muted" style={{ fontSize: '12px' }}>Active expenditure</small>
+          </div>
         </div>
       </div>
 
-      <div className="kp s3" style={{ '--c': '#0F766E' }}>
-        <span className="ki">
-          <SvgIcon name="heart" size={22} />
-        </span>
-        <div>
-          <small>Distance Covered</small>
-          <b>{distanceKm} km</b>
-          <em>Outdoor &amp; treadmill</em>
+      <div className="card-box s3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="flat-sq sq-teal">
+            <SvgIcon name="heart" size={24} />
+          </div>
+          <div>
+            <div className="sec-label">DISTANCE COVERED</div>
+            <b style={{ fontSize: '24px', display: 'block', letterSpacing: '-0.02em' }}>
+              {distanceKm} km
+            </b>
+            <small className="muted" style={{ fontSize: '12px' }}>Outdoor &amp; treadmill</small>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Sunset Banner (like Images 1 & 3) */}
+      <div className="s12">
+        <div className="banner-orange">
+          <div className="banner-icon">
+            <SvgIcon name="flame" size={24} />
+          </div>
+          <div>
+            <b>Daily Movement Challenge · Keep your streak burning!</b>
+            <p>Reach your 8,000 steps target today to secure +50 Health Fund pool points and climb the rankings.</p>
+          </div>
+          <button
+            className="banner-btn"
+            onClick={() => {
+              logQuickActivity(15, 25);
+              setSteps((s) => s + 1200);
+              showToast('Quick walk logged! +1,200 steps & +25 points 🔥');
+            }}
+          >
+            + Quick Walk
+          </button>
         </div>
       </div>
 
       {/* Walking Tracker Card (span 8) */}
-      <div className="pn s8">
-        <div className="pt">
+      <div className="card-box s8">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
           <div>
-            <h3>Walking tracker</h3>
-            <small className="muted">Live cadence &amp; step counter</small>
+            <div className="sec-label">WALKING TRACKER</div>
+            <h3 style={{ fontSize: '20px', margin: '2px 0 0' }}>Live Cadence &amp; Step Counter</h3>
           </div>
-          <span
-            className="pp2"
-            style={{ cursor: 'pointer', userSelect: 'none' }}
+          <button
+            className="pill-tag"
+            style={{ cursor: 'pointer', border: 'none', background: 'var(--mint)', color: 'var(--gd)', fontWeight: 700 }}
             title="Click to toggle sync source"
             onClick={() => {
               const nextMode =
@@ -238,8 +279,8 @@ export default function ActivitiesPage() {
               showToast(`Sync source: ${nextMode}`);
             }}
           >
-            {sourceMode}
-          </span>
+            ● {sourceMode}
+          </button>
         </div>
 
         <div
@@ -318,17 +359,7 @@ export default function ActivitiesPage() {
             </div>
 
             <div>
-              <label
-                style={{
-                  display: 'block',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  color: 'var(--sub)',
-                  marginBottom: '6px'
-                }}
-              >
-                Set Daily Goal:
-              </label>
+              <div className="sec-label" style={{ marginBottom: '8px' }}>SET DAILY GOAL</div>
               <div className="cps">
                 {[3000, 5000, 8000, 10000].map((g) => (
                   <button
@@ -360,24 +391,28 @@ export default function ActivitiesPage() {
           }}
         >
           <button
-            className={`btn ${isWalking ? 'o' : ''}`}
+            className={`pill-btn ${isWalking ? 'pill-outline' : 'pill-blue'}`}
             onClick={toggleWalkingSession}
           >
             {isWalking ? 'Pause walking' : 'Start walking'}
           </button>
           <button
-            className="btn o"
+            className="pill-btn pill-outline"
             onClick={finishWalkingSession}
           >
             Finish session
           </button>
-          <span className="muted" style={{ fontSize: '14px' }}>
+          <span className="muted" style={{ fontSize: '14px', marginLeft: '6px' }}>
             Session time: <b style={{ color: 'var(--tx)' }}>{formatTimer(walkSeconds)}</b>
           </span>
           <button
-            className="btn sm o"
+            className="pill-btn pill-green"
             style={{ marginLeft: 'auto' }}
-            onClick={() => logQuickActivity(15, 15)}
+            onClick={() => {
+              logQuickActivity(15, 15);
+              setSteps((s) => s + 1500);
+              showToast('+15 min & +1,500 steps logged! +15 pts');
+            }}
           >
             + Quick log 15 min
           </button>
@@ -385,185 +420,176 @@ export default function ActivitiesPage() {
       </div>
 
       {/* Recent Walks History (span 4) */}
-      <div className="pn s4">
-        <div className="pt">
-          <h3>Recent recorded walks</h3>
-        </div>
-        <p className="muted" style={{ fontSize: '13px', marginBottom: '12px' }}>
-          Automatically logged through step detection &amp; manual sessions.
-        </p>
+      <div className="card-box s4">
+        <div className="sec-label">RECENT WALKS</div>
+        <h3 style={{ fontSize: '18px', margin: '2px 0 12px' }}>Recorded Walks</h3>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {walks.map((w, idx) => (
-            <div key={idx} className="lr">
-              <div className="lt">
-                <SvgIcon name="act" size={20} />
+            <div key={idx} className="card-row" style={{ padding: '10px 0' }}>
+              <div className="flat-sq sq-blue" style={{ width: '38px', height: '38px', borderRadius: '12px' }}>
+                <SvgIcon name="act" size={18} />
               </div>
-              <div style={{ flex: 1 }}>
-                <b style={{ fontSize: '14px', display: 'block' }}>{w[0]}</b>
-                <small className="muted" style={{ display: 'block' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <b style={{ fontSize: '14px', display: 'block', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {w[0]}
+                </b>
+                <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
                   {w[1]} · {w[2]}
                 </small>
               </div>
-              <span className="pp2">Verified ✓</span>
+              <div className="chk-circle" title="Verified by Step Detector">
+                ✓
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Guided Breathing Break (span 6) */}
-      <div
-        className="pn s6"
-        style={{
-          background: 'var(--tea)',
-          color: '#fff',
-          border: '0',
-          textAlign: 'center',
-          padding: '24px'
-        }}
-      >
-        <div className="pt" style={{ justifyContent: 'center' }}>
-          <h3 style={{ color: '#fff' }}>Guided breathing break</h3>
-        </div>
-        <p style={{ fontSize: '14px', opacity: 0.9, maxWidth: '420px', margin: '0 auto 14px' }}>
-          Four-count box breathing to reduce cortisol and reset resting heart rate.
-        </p>
+      <div className="card-box s6" style={{ background: 'linear-gradient(135deg, #0F766E 0%, #115E59 100%)', color: '#fff' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div className="sec-label" style={{ color: 'rgba(255,255,255,0.75)' }}>MINDFUL BREATHING BREAK</div>
+          <h3 style={{ color: '#fff', fontSize: '22px', margin: '4px 0 6px' }}>Four-Count Box Breathing</h3>
+          <p style={{ fontSize: '13px', opacity: 0.88, maxWidth: '380px', margin: '0 auto 14px' }}>
+            Inhale, hold, exhale, reset. Clinically designed to lower cortisol and steady resting pulse.
+          </p>
 
-        {/* Duration selector */}
-        <div className="cps" style={{ justifyContent: 'center', marginBottom: '14px' }}>
-          {[
-            [60, '1 min'],
-            [180, '3 min'],
-            [300, '5 min']
-          ].map(([dur, label]) => (
-            <button
-              key={dur}
-              className={`cp ${dur === breathDuration ? 'on' : ''}`}
-              style={{
-                background: dur === breathDuration ? '#fff' : 'rgba(255,255,255,.2)',
-                color: dur === breathDuration ? 'var(--tea)' : '#fff',
-                borderColor: 'transparent'
-              }}
-              onClick={() => selectBreathDuration(dur)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+          {/* Duration selector */}
+          <div className="cps" style={{ justifyContent: 'center', marginBottom: '16px' }}>
+            {[
+              [60, '1 min'],
+              [180, '3 min'],
+              [300, '5 min']
+            ].map(([dur, label]) => (
+              <button
+                key={dur}
+                className={`cp ${dur === breathDuration ? 'on' : ''}`}
+                style={{
+                  background: dur === breathDuration ? '#fff' : 'rgba(255,255,255,.2)',
+                  color: dur === breathDuration ? '#0F766E' : '#fff',
+                  borderColor: 'transparent',
+                  fontWeight: 700
+                }}
+                onClick={() => selectBreathDuration(dur)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
 
-        {/* Breathing Circle */}
-        <div
-          className={`br ${breathActive ? 'on' : ''}`}
-          id="bc"
-          style={{
-            width: '130px',
-            height: '130px',
-            margin: '18px auto 10px',
-            display: 'grid',
-            placeItems: 'center',
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,.2)',
-            boxShadow: breathActive ? '0 0 35px rgba(255,255,255,.4)' : 'none',
-            transition: 'all 0.5s ease'
-          }}
-        >
-          <span style={{ fontSize: '16px', fontWeight: 700, color: '#fff' }}>
-            {breathPhase}
-          </span>
-        </div>
-
-        <div style={{ opacity: 0.92, marginBottom: '16px', fontSize: '15px' }}>
-          {formatTimer(breathRemaining)} remaining
-        </div>
-
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          <button
-            className="btn wt sm"
-            onClick={toggleBreathing}
-            style={{ minWidth: '120px' }}
+          {/* Breathing Animated Circle */}
+          <div
+            className={`br ${breathActive ? 'on' : ''}`}
+            id="bc"
+            style={{
+              width: '120px',
+              height: '120px',
+              margin: '14px auto 10px',
+              display: 'grid',
+              placeItems: 'center',
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,.22)',
+              boxShadow: breathActive ? '0 0 35px rgba(255,255,255,.5)' : 'none',
+              transition: 'all 0.5s ease'
+            }}
           >
-            {breathActive ? 'Pause' : 'Begin session'}
-          </button>
-          {breathActive && (
+            <span style={{ fontSize: '16px', fontWeight: 800, color: '#fff' }}>
+              {breathPhase}
+            </span>
+          </div>
+
+          <div style={{ opacity: 0.9, marginBottom: '14px', fontSize: '14px', fontWeight: 600 }}>
+            {formatTimer(breathRemaining)} remaining
+          </div>
+
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
             <button
-              className="btn sm"
-              style={{ background: 'rgba(255,255,255,.2)', color: '#fff', border: '1px solid rgba(255,255,255,.4)' }}
-              onClick={() => {
-                setBreathActive(false);
-                setBreathRemaining(breathDuration);
-                setBreathPhase('Ready');
-              }}
+              className="pill-btn"
+              style={{ background: '#fff', color: '#0F766E', minWidth: '130px' }}
+              onClick={toggleBreathing}
             >
-              Reset
+              {breathActive ? 'Pause' : 'Begin session'}
             </button>
-          )}
+            {breathActive && (
+              <button
+                className="pill-btn pill-outline"
+                style={{ borderColor: 'rgba(255,255,255,0.6)', color: '#fff' }}
+                onClick={() => {
+                  setBreathActive(false);
+                  setBreathRemaining(breathDuration);
+                  setBreathPhase('Ready');
+                }}
+              >
+                Reset
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
       {/* More Ways to Move (span 6) */}
-      <div className="pn s6">
-        <div className="pt">
-          <h3>More ways to move</h3>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '6px' }}>
+      <div className="card-box s6">
+        <div className="sec-label">EXPLORE ACTIVITIES</div>
+        <h3 style={{ fontSize: '20px', margin: '2px 0 14px' }}>More Ways to Move</h3>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {[
             [
               'Workout builder',
               'Create and play your customized interval routines',
               '/app/workouts',
               'dumb',
-              '#6D3AE8'
+              'sq-purple'
             ],
             [
               'Nutrition and hydration',
               'Track daily water intake and explore balanced West African meals',
               '/app/nutrition',
               'leaf',
-              '#EF5A3C'
+              'sq-orange'
             ],
             [
               'Structured programmes',
               'Evidence-based multi-week health pathways with lessons',
               '/app/programmes',
               'shield',
-              '#2563EB'
+              'sq-blue'
             ]
-          ].map(([title, desc, href, icon, color], idx) => (
+          ].map(([title, desc, href, icon, sqClass], idx) => (
             <Link
               key={idx}
               href={href}
-              className="lr"
-              style={{ textDecoration: 'none', padding: '12px 14px' }}
+              className="card-row"
+              style={{ textDecoration: 'none', padding: '12px 0' }}
             >
-              <div
-                className="lt"
-                style={{ background: color, color: '#fff', borderRadius: '14px' }}
-              >
-                <SvgIcon name={icon} size={20} />
+              <div className={`flat-sq ${sqClass}`}>
+                <SvgIcon name={icon} size={22} />
               </div>
-              <div style={{ flex: 1 }}>
-                <b style={{ fontSize: '15px', color: 'var(--tx)' }}>{title}</b>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <b style={{ fontSize: '15px', color: 'var(--tx)', display: 'block' }}>{title}</b>
                 <small className="muted" style={{ display: 'block', marginTop: '2px' }}>
                   {desc}
                 </small>
               </div>
-              <span style={{ color: 'var(--g)', fontSize: '18px', fontWeight: 700 }}>&rarr;</span>
+              <span style={{ color: 'var(--g)', fontSize: '18px', fontWeight: 800 }}>&rarr;</span>
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Exercise Movement Library (span 12) - Fully Functional */}
-      <div className="pn s12">
-        <div className="pt">
+      {/* Exercise Movement Library (span 12) - Fully Functional Categories & Filters */}
+      <div className="card-box s12">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px', marginBottom: '16px' }}>
           <div>
-            <h3>Exercise movement library</h3>
+            <div className="sec-label">EXERCISE MOVEMENT LIBRARY</div>
+            <h3 style={{ fontSize: '22px', margin: '2px 0 4px' }}>Technique &amp; Form Guide</h3>
             <small className="muted">
-              Learn proper form, breathing technique &amp; target muscle groups
+              Explore step-by-step biomechanics, breathing techniques &amp; target muscle groups
             </small>
           </div>
           <button
-            className="btn sm"
+            className="pill-btn pill-blue"
             onClick={() => {
               const routineNames = filteredExercises.slice(0, 4).map((e) => e[0]);
               startWorkout(routineNames.length ? routineNames : ['High knees', 'Push-ups', 'Bodyweight squats', 'Plank hold']);
@@ -574,7 +600,7 @@ export default function ActivitiesPage() {
           </button>
         </div>
 
-        {/* Categories & Search Filters */}
+        {/* Categories Pills & Search Input */}
         <div
           style={{
             display: 'flex',
@@ -582,7 +608,7 @@ export default function ActivitiesPage() {
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
-            margin: '18px 0 20px'
+            margin: '14px 0 20px'
           }}
         >
           <div className="cps">
@@ -597,7 +623,7 @@ export default function ActivitiesPage() {
             ))}
           </div>
 
-          <div className="bsr" style={{ height: '40px', maxWidth: '280px', width: '100%' }}>
+          <div className="bsr" style={{ height: '40px', maxWidth: '300px', width: '100%' }}>
             <SvgIcon name="search" size={16} />
             <input
               placeholder="Search movement or muscle..."
@@ -607,11 +633,11 @@ export default function ActivitiesPage() {
           </div>
         </div>
 
-        {/* Exercises Cards Grid */}
+        {/* Exercise Cards Grid */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
             gap: '16px'
           }}
         >
@@ -629,7 +655,7 @@ export default function ActivitiesPage() {
                 No exercises found matching &quot;{search}&quot; in {filter}.
               </p>
               <button
-                className="btn sm o"
+                className="pill-btn pill-outline"
                 style={{ marginTop: '12px' }}
                 onClick={() => {
                   setFilter('All');
@@ -646,7 +672,7 @@ export default function ActivitiesPage() {
                 style={{
                   background: 'var(--sf)',
                   border: '1px solid var(--ln)',
-                  borderRadius: '18px',
+                  borderRadius: '20px',
                   padding: '20px',
                   cursor: 'pointer',
                   display: 'flex',
@@ -671,9 +697,9 @@ export default function ActivitiesPage() {
                       style={{
                         fontSize: '12px',
                         color: 'var(--sub)',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         background: 'var(--mint)',
-                        padding: '3px 8px',
+                        padding: '3px 9px',
                         borderRadius: '6px'
                       }}
                     >
@@ -681,9 +707,25 @@ export default function ActivitiesPage() {
                     </span>
                   </div>
 
-                  <b style={{ fontSize: '18px', display: 'block', margin: '4px 0 6px', color: 'var(--tx)' }}>
-                    {ex[0]}
-                  </b>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '8px 0 10px' }}>
+                    <div
+                      className={`flat-sq ${
+                        ex[2] === 'Upper Body'
+                          ? 'sq-blue'
+                          : ex[2] === 'Lower Body'
+                          ? 'sq-green'
+                          : ex[2] === 'Core'
+                          ? 'sq-purple'
+                          : 'sq-orange'
+                      }`}
+                      style={{ width: '40px', height: '40px', borderRadius: '12px', flex: 'none' }}
+                    >
+                      <SvgIcon name={ex[6] || 'dumb'} size={20} />
+                    </div>
+                    <b style={{ fontSize: '17px', color: 'var(--tx)', lineHeight: 1.3 }}>
+                      {ex[0]}
+                    </b>
+                  </div>
 
                   <small
                     className="muted"
@@ -703,7 +745,7 @@ export default function ActivitiesPage() {
                     alignItems: 'center',
                     fontSize: '13px',
                     color: 'var(--g)',
-                    fontWeight: 600
+                    fontWeight: 700
                   }}
                 >
                   <span>View technique &amp; instructions</span>

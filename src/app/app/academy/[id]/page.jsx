@@ -33,7 +33,7 @@ export default function CourseDetailPage({ params }) {
     if (isCorrect) {
       showToast('Correct! +10 points');
     } else {
-      showToast('Not quite, but great effort! Review the lesson below.');
+      showToast('Not quite, but great effort! Review the lesson on the left.');
     }
   };
 
@@ -48,39 +48,41 @@ export default function CourseDetailPage({ params }) {
   return (
     <div className="pg">
       <div className="bcr">
-        <Link href="/app/academy">&larr; Back to Academy</Link>
+        <Link href="/app/academy" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span>&larr;</span> Back to Academy
+        </Link>
       </div>
 
       {/* Course Header */}
-      <div style={{ background: 'var(--wh)', border: '1px solid var(--ln)', borderRadius: '24px', padding: '32px', margin: '16px 0 32px' }}>
+      <div className="card-box" style={{ margin: '16px 0 28px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '14px' }}>
-          <div className="lt" style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'var(--mint)', color: 'var(--gd)' }}>
-            <SvgIcon name={course[0]} size={28} />
+          <div className="flat-sq sq-blue" style={{ width: '52px', height: '52px', borderRadius: '16px' }}>
+            <SvgIcon name={course[0] || 'book'} size={28} />
           </div>
           <div>
-            <h1 style={{ fontSize: '28px' }}>{course[1]}</h1>
+            <div className="sec-label">COURSE MODULE</div>
+            <h1 style={{ fontSize: '28px', margin: '2px 0 4px', letterSpacing: '-0.02em' }}>{course[1]}</h1>
             <p className="muted" style={{ fontSize: '15px' }}>{course[2]}</p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', borderTop: '1px solid var(--ln)', paddingTop: '18px', marginTop: '18px', fontSize: '14px' }}>
+        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', borderTop: '1px solid var(--ln)', paddingTop: '16px', marginTop: '16px', fontSize: '13px' }}>
           <span><b>{course[3]}</b> Lessons</span>
           <span><b>{course[4]}</b> Minutes reading</span>
           <span>Interactive Knowledge Check</span>
-          <span style={{ color: 'var(--g)', fontWeight: 700 }}>+50 Pool Points Available</span>
+          <span style={{ color: 'var(--g)', fontWeight: 800 }}>+50 Pool Points Available</span>
         </div>
       </div>
 
       {/* Two columns: Course Content & Quiz */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr .8fr', gap: '28px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
         {/* Lesson Material */}
-        <div className="pn">
-          <div className="pt">
-            <h3>Lesson Notes &amp; Core Concepts</h3>
-            <small className="muted">Study before testing</small>
-          </div>
+        <div className="card-box">
+          <div className="sec-label">CURRICULUM MATERIAL</div>
+          <h3 style={{ fontSize: '20px', margin: '2px 0 8px' }}>Lesson Notes &amp; Core Concepts</h3>
+          <small className="muted" style={{ display: 'block', marginBottom: '14px' }}>Study the key takeaways before testing your retention</small>
 
-          <div className="bd2" style={{ marginTop: '16px', lineHeight: 1.7, fontSize: '16px' }}>
+          <div className="bd2" style={{ lineHeight: 1.7, fontSize: '15px' }}>
             <p>
               Evidence shows that sustainable lifestyle health relies on predictable daily micro-habits rather than sudden dramatic overhauls. When building a balanced diet or workout routine, aim for gradual habit stacking:
             </p>
@@ -96,30 +98,33 @@ export default function CourseDetailPage({ params }) {
         </div>
 
         {/* Interactive Quiz */}
-        <div className="pn">
-          <div className="pt">
-            <h3>Interactive Quiz</h3>
-            <small style={{ color: 'var(--g)', fontWeight: 700 }}>
+        <div className="card-box">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+            <div>
+              <div className="sec-label">KNOWLEDGE CHECK</div>
+              <h3 style={{ fontSize: '20px', margin: '2px 0 0' }}>Interactive Quiz</h3>
+            </div>
+            <span className="pill-tag" style={{ background: 'rgba(0,122,255,0.08)', color: '#007AFF' }}>
               Question {activeQuestion + 1} of {QZ.length}
-            </small>
+            </span>
           </div>
 
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '36px 16px' }}>
-              <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'var(--mint)', color: 'var(--gd)', display: 'grid', placeItems: 'center', margin: '0 auto 16px' }}>
-                <SvgIcon name="chk" size={32} />
+              <div className="chk-circle" style={{ width: '56px', height: '56px', fontSize: '28px', margin: '0 auto 16px' }}>
+                ✓
               </div>
               <h3 style={{ fontSize: '22px', marginBottom: '8px' }}>Course Completed!</h3>
-              <p className="muted" style={{ fontSize: '15px', marginBottom: '24px' }}>
+              <p className="muted" style={{ fontSize: '14px', marginBottom: '24px' }}>
                 You scored well and reinforced vital health habits. +50 points have been added to your Health Fund balance.
               </p>
-              <Link href="/app/academy" className="btn sm" style={{ width: '100%' }}>
+              <Link href="/app/academy" className="pill-btn pill-blue" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '42px', textDecoration: 'none' }}>
                 Explore More Courses
               </Link>
             </div>
           ) : (
             <div>
-              <p style={{ fontWeight: 600, fontSize: '17px', margin: '14px 0 20px', color: 'var(--tx)' }}>
+              <p style={{ fontWeight: 700, fontSize: '16px', margin: '14px 0 18px', color: 'var(--tx)', lineHeight: 1.4 }}>
                 {questionText}
               </p>
 
@@ -152,13 +157,13 @@ export default function CourseDetailPage({ params }) {
                       disabled={hasAnswered}
                       onClick={() => handleSelectOption(i)}
                       style={{
-                        padding: '14px 18px',
-                        borderRadius: '14px',
+                        padding: '12px 16px',
+                        borderRadius: '16px',
                         background: bg,
                         border: `1.5px solid ${border}`,
                         color: textColor,
                         fontWeight: 600,
-                        fontSize: '15px',
+                        fontSize: '14px',
                         textAlign: 'left',
                         cursor: hasAnswered ? 'default' : 'pointer',
                         transition: 'all .2s'
@@ -173,7 +178,7 @@ export default function CourseDetailPage({ params }) {
               {/* Navigation controls */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--ln)' }}>
                 <button
-                  className="btn sm o"
+                  className="pill-btn pill-outline"
                   disabled={activeQuestion === 0}
                   onClick={() => setActiveQuestion((q) => q - 1)}
                 >
@@ -182,7 +187,7 @@ export default function CourseDetailPage({ params }) {
 
                 {activeQuestion < QZ.length - 1 ? (
                   <button
-                    className="btn sm"
+                    className="pill-btn pill-blue"
                     disabled={selectedAnswers[activeQuestion] === undefined}
                     onClick={() => setActiveQuestion((q) => q + 1)}
                   >
@@ -190,7 +195,7 @@ export default function CourseDetailPage({ params }) {
                   </button>
                 ) : (
                   <button
-                    className="btn sm"
+                    className="pill-btn pill-green"
                     disabled={answeredCount < QZ.length}
                     onClick={handleFinishQuiz}
                   >
@@ -205,4 +210,3 @@ export default function CourseDetailPage({ params }) {
     </div>
   );
 }
-

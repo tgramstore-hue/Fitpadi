@@ -13,22 +13,35 @@ export default function NotificationsPage() {
     return n[4] === filter;
   });
 
+  const getSquircleColor = (icon) => {
+    switch (icon) {
+      case 'trophy': return 'sq-purple';
+      case 'flame': return 'sq-red';
+      case 'wallet': return 'sq-green';
+      case 'coin': return 'sq-gold';
+      case 'cap': return 'sq-blue';
+      default: return 'sq-teal';
+    }
+  };
+
   return (
-    <div>
-      <div className="pn">
-        <div className="pt">
+    <div style={{ paddingBottom: '90px' }}>
+      <span className="sec-label">INBOX</span>
+      <div className="card-box">
+        <div className="pt" style={{ marginBottom: '16px' }}>
           <div>
-            <h3>Notifications Center</h3>
+            <h3 style={{ fontSize: '18px', margin: 0 }}>Notification center</h3>
             <small className="muted">Updates on challenges, streaks &amp; Health Fund payouts</small>
           </div>
           {unreadNotifications > 0 && (
-            <button className="btn sm o" onClick={markNotificationsRead}>
+            <button className="pill-btn pill-outline" onClick={markNotificationsRead}>
               Mark all read
             </button>
           )}
         </div>
 
-        <div className="cps" style={{ margin: '18px 0 24px' }}>
+        {/* Filter pills */}
+        <div className="cps" style={{ marginBottom: '18px' }}>
           {[
             ['all', 'All Activity'],
             ['c', 'Challenges'],
@@ -45,53 +58,32 @@ export default function NotificationsPage() {
           ))}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {/* Notifications list */}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           {filtered.map((n, idx) => (
-            <div
-              key={idx}
-              className="lr"
-              style={{
-                padding: '16px 20px',
-                background: 'var(--sf)',
-                borderRadius: '16px',
-                border: 0,
-                alignItems: 'flex-start'
-              }}
-            >
-              <div
-                className="lt"
-                style={{
-                  background: 'var(--mint)',
-                  color: 'var(--gd)',
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '12px'
-                }}
-              >
+            <div key={idx} className="card-row">
+              <div className={`flat-sq ${getSquircleColor(n[0])}`}>
                 <SvgIcon name={n[0]} size={22} />
               </div>
 
-              <div style={{ flex: 1 }}>
-                <b style={{ fontSize: '16px', display: 'block', marginBottom: '4px' }}>{n[1]}</b>
-                <p className="muted" style={{ fontSize: '14px', lineHeight: 1.5 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <b style={{ fontSize: '15px', display: 'block', color: 'var(--tx)' }}>
+                  {n[1]}
+                </b>
+                <small className="muted" style={{ display: 'block', marginTop: '2px', fontSize: '13px', lineHeight: 1.4 }}>
                   {n[2]}
-                </p>
+                </small>
               </div>
 
-              <span style={{ fontSize: '12px', color: 'var(--sub)', fontWeight: 600, flex: 'none' }}>
-                {n[3]}
-              </span>
+              <div style={{ textAlign: 'right', flex: 'none' }}>
+                <span className="pill-tag" style={{ fontSize: '11px' }}>
+                  {n[3]}
+                </span>
+              </div>
             </div>
           ))}
-
-          {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '40px 10px' }}>
-              <p className="muted">No notifications in this category.</p>
-            </div>
-          )}
         </div>
       </div>
     </div>
   );
 }
-

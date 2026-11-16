@@ -2,6 +2,7 @@ import InAppSidebar from '../../components/InAppSidebar.jsx';
 import InAppHeader from '../../components/InAppHeader.jsx';
 import InAppBottomNav from '../../components/InAppBottomNav.jsx';
 import WorkoutModal from '../../components/WorkoutModal.jsx';
+import ExerciseModal from '../../components/ExerciseModal.jsx';
 
 export default function AppLayout({ children }) {
   return (
@@ -11,6 +12,7 @@ export default function AppLayout({ children }) {
         <InAppHeader />
         {children}
         <WorkoutModal />
+        <ExerciseModal />
       </section>
       <InAppBottomNav />
     </div>

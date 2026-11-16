@@ -9,25 +9,28 @@ export default function InAppBottomNav() {
   const pathname = usePathname();
 
   const items = [
-    { href: '/app', label: 'Home', icon: 'home' },
-    { href: '/app/programmes', label: 'Programmes', icon: 'book' },
+    { href: '/app', label: 'Home', icon: 'home', hasDot: true },
+    { href: '/app/challenges', label: 'TOP', icon: 'trophy' },
     { href: '/app/activities', label: 'Activities', icon: 'act' },
-    { href: '/app/challenges', label: 'Challenges', icon: 'trophy' },
     { href: '/app/rewards', label: 'Rewards', icon: 'wallet' },
-    { href: '/app/profile', label: 'Profile', icon: 'user' }
+    { href: '/app/referrals', label: 'Friends', icon: 'users' }
   ];
 
   return (
-    <nav className="bmb" aria-label="Mobile Navigation">
+    <nav className="bmb" aria-label="App Floating Navigation">
       {items.map((item) => {
-        const isActive = item.href === '/app' ? pathname === '/app' : pathname.startsWith(item.href);
+        const isActive =
+          item.href === '/app' ? pathname === '/app' : pathname.startsWith(item.href);
         return (
           <Link
             key={item.href}
             href={item.href}
             className={isActive ? 'on' : ''}
           >
-            <SvgIcon name={item.icon} size={20} />
+            <div style={{ position: 'relative' }}>
+              <SvgIcon name={item.icon} size={20} />
+              {item.hasDot && !isActive && <span className="b-dot" />}
+            </div>
             <span>{item.label}</span>
           </Link>
         );
@@ -35,4 +38,3 @@ export default function InAppBottomNav() {
     </nav>
   );
 }
-

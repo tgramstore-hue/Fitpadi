@@ -39,6 +39,16 @@ function InAppProgrammesContent() {
 
   return (
     <div>
+      <div style={{ marginBottom: '20px' }}>
+        <div className="sec-label">PROGRAMMES</div>
+        <h2 style={{ fontSize: '26px', margin: '4px 0 6px', letterSpacing: '-0.02em' }}>
+          Structured Health Pathways
+        </h2>
+        <p className="muted" style={{ fontSize: '14px', maxWidth: '640px' }}>
+          Follow progressive multi-week routines designed with sports medicine and clinical physical therapy principles.
+        </p>
+      </div>
+
       <div
         style={{
           display: 'flex',
@@ -82,21 +92,41 @@ function InAppProgrammesContent() {
             <Link
               key={originalIdx}
               href={`/app/programmes/${originalIdx}`}
-              className="pcd"
-              style={{ textDecoration: 'none' }}
+              className="pcd card-box"
+              style={{ textDecoration: 'none', padding: 0, overflow: 'hidden' }}
             >
-              <div className="im">
+              <div className="im" style={{ height: '170px' }}>
                 <SceneSvg type={SCN[originalIdx]} color={p[4]} />
               </div>
-              <div className="bd">
-                <b style={{ fontSize: '17px', display: 'block' }}>{p[1]}</b>
-                <small style={{ display: 'block', margin: '4px 0 12px' }}>{p[3]}</small>
-                <div className="pgb">
+              <div className="bd" style={{ padding: '20px 22px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span className="tg">{p[2]}</span>
+                  <span className="pill-tag" style={{ background: 'rgba(0,122,255,0.08)', color: '#007AFF' }}>
+                    {pct}% done
+                  </span>
+                </div>
+                <b style={{ fontSize: '18px', display: 'block', margin: '4px 0 6px', color: 'var(--tx)' }}>
+                  {p[1]}
+                </b>
+                <small className="muted" style={{ display: 'block', margin: '0 0 14px', fontSize: '13px', lineHeight: 1.4 }}>
+                  {p[3]}
+                </small>
+                <div className="pgb" style={{ height: '8px' }}>
                   <i style={{ width: `${pct}%` }} />
                 </div>
-                <small style={{ display: 'block', marginTop: '8px' }}>
-                  {doneCount} of 6 lessons
-                </small>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: '12px',
+                    fontSize: '12px',
+                    color: 'var(--sub)'
+                  }}
+                >
+                  <span>{doneCount} of 6 lessons finished</span>
+                  <span style={{ color: 'var(--g)', fontWeight: 700 }}>Open &rarr;</span>
+                </div>
               </div>
             </Link>
           );

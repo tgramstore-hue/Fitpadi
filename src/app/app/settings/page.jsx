@@ -21,10 +21,10 @@ export default function SettingsPage() {
 
   const handleExportData = () => {
     const data = {
-      user: 'David Adeleke',
+      user: 'David Okonkwo',
       exportedAt: new Date().toISOString(),
       streakDays: 7,
-      totalSteps: 48290,
+      totalSteps: 62400,
       rewardPoints: 2450
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -45,99 +45,118 @@ export default function SettingsPage() {
   };
 
   return (
-    <div>
-      <div className="pn" style={{ marginBottom: '28px' }}>
-        <h3 style={{ marginBottom: '20px' }}>App Preferences</h3>
+    <div style={{ paddingBottom: '90px' }}>
+      <span className="sec-label">PREFERENCES</span>
+      <div className="card-box" style={{ marginBottom: '24px' }}>
+        <div className="pt" style={{ marginBottom: '14px' }}>
+          <div>
+            <h3 style={{ fontSize: '18px', margin: 0 }}>App Preferences</h3>
+            <small className="muted">Customize your experience and audio settings</small>
+          </div>
+        </div>
 
         {/* Theme Setting */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0', borderBottom: '1px solid var(--ln)' }}>
-          <div>
-            <b style={{ fontSize: '16px', display: 'block' }}>Interface Theme</b>
-            <small className="muted">Switch between dark mode and light mode</small>
+        <div className="card-row">
+          <div className="flat-sq sq-blue">
+            <SvgIcon name="globe" size={20} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <b style={{ fontSize: '15px', display: 'block', color: 'var(--tx)' }}>Interface Theme</b>
+            <small className="muted" style={{ fontSize: '13px' }}>Switch between dark and light appearance</small>
           </div>
           <div className="cps">
             <button
               className={`cp ${theme === 'light' ? 'on' : ''}`}
-              onClick={() => theme === 'dark' && toggleTheme()}
+              onClick={toggleTheme}
             >
               Light
             </button>
             <button
               className={`cp ${theme === 'dark' ? 'on' : ''}`}
-              onClick={() => theme === 'light' && toggleTheme()}
+              onClick={toggleTheme}
             >
               Dark
             </button>
           </div>
         </div>
 
-        {/* Sound Setting */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0', borderBottom: '1px solid var(--ln)' }}>
-          <div>
-            <b style={{ fontSize: '16px', display: 'block' }}>Audio Workout Cues</b>
-            <small className="muted">Play audio chimes during workout intervals and rest</small>
+        {/* Audio Cues */}
+        <div className="card-row">
+          <div className="flat-sq sq-purple">
+            <SvgIcon name="vol" size={20} />
           </div>
-          <div className="cps">
-            <button
-              className={`cp ${soundEnabled ? 'on' : ''}`}
-              onClick={() => setSoundEnabled(true)}
-            >
-              Enabled
-            </button>
-            <button
-              className={`cp ${!soundEnabled ? 'on' : ''}`}
-              onClick={() => setSoundEnabled(false)}
-            >
-              Muted
-            </button>
+          <div style={{ flex: 1 }}>
+            <b style={{ fontSize: '15px', display: 'block', color: 'var(--tx)' }}>Audio Beeps &amp; Chimes</b>
+            <small className="muted" style={{ fontSize: '13px' }}>Interval countdown sounds in workouts</small>
           </div>
+          <button
+            className={`tgl ${soundEnabled ? 'on' : ''}`}
+            onClick={() => {
+              setSoundEnabled(!soundEnabled);
+              showToast(`Workout audio cues ${!soundEnabled ? 'enabled' : 'muted'}`);
+            }}
+            aria-label="Toggle workout sounds"
+          />
         </div>
 
-        {/* Units Setting */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0' }}>
-          <div>
-            <b style={{ fontSize: '16px', display: 'block' }}>Measurement Units</b>
-            <small className="muted">Metric (km, ml, kg) or Imperial (mi, oz, lbs)</small>
+        {/* Units of Measure */}
+        <div className="card-row">
+          <div className="flat-sq sq-teal">
+            <SvgIcon name="act" size={20} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <b style={{ fontSize: '15px', display: 'block', color: 'var(--tx)' }}>Units of Measurement</b>
+            <small className="muted" style={{ fontSize: '13px' }}>Distance and hydration calculation</small>
           </div>
           <div className="cps">
             <button
               className={`cp ${units === 'metric' ? 'on' : ''}`}
-              onClick={() => setUnits('metric')}
+              onClick={() => {
+                setUnits('metric');
+                showToast('Units set to Metric (km, ml)');
+              }}
             >
-              Metric
+              Metric (km, ml)
             </button>
             <button
               className={`cp ${units === 'imperial' ? 'on' : ''}`}
-              onClick={() => setUnits('imperial')}
+              onClick={() => {
+                setUnits('imperial');
+                showToast('Units set to Imperial (miles, fl oz)');
+              }}
             >
-              Imperial
+              Imperial (mi, oz)
             </button>
           </div>
         </div>
       </div>
 
-      {/* Data & Privacy Actions */}
-      <div className="pn">
-        <h3 style={{ marginBottom: '20px' }}>Data &amp; Privacy</h3>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0', borderBottom: '1px solid var(--ln)' }}>
-          <div>
-            <b style={{ fontSize: '16px', display: 'block' }}>Download Health Data</b>
-            <small className="muted">Export all your steps, missions, and points history as JSON</small>
+      {/* Data Management Section */}
+      <span className="sec-label">DATA & PRIVACY</span>
+      <div className="card-box">
+        <div className="card-row">
+          <div className="flat-sq sq-green">
+            <SvgIcon name="shield" size={20} />
           </div>
-          <button className="btn sm o" onClick={handleExportData}>
-            Export Data
+          <div style={{ flex: 1 }}>
+            <b style={{ fontSize: '15px', display: 'block', color: 'var(--tx)' }}>Export Health Data</b>
+            <small className="muted" style={{ fontSize: '13px' }}>Download your step and points history in JSON</small>
+          </div>
+          <button className="pill-btn pill-outline" onClick={handleExportData}>
+            Export JSON
           </button>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0' }}>
-          <div>
-            <b style={{ fontSize: '16px', display: 'block', color: 'var(--cor)' }}>Delete FitPadi Account</b>
-            <small className="muted">Permanently remove your account and all associated habit data</small>
+        <div className="card-row">
+          <div className="flat-sq sq-red">
+            <SvgIcon name="close" size={20} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <b style={{ fontSize: '15px', display: 'block', color: '#EF4444' }}>Delete Account</b>
+            <small className="muted" style={{ fontSize: '13px' }}>Permanently remove your account and streak</small>
           </div>
           <button
-            className="btn sm o"
-            style={{ borderColor: 'var(--cor)', color: 'var(--cor)' }}
+            className="pill-btn pill-locked"
             onClick={() => setShowDeleteModal(true)}
           >
             Delete Account
@@ -145,29 +164,42 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete confirmation modal */}
       {showDeleteModal && (
         <div className="md" onClick={() => setShowDeleteModal(false)}>
-          <div className="mc" onClick={(e) => e.stopPropagation()}>
-            <button className="cl" onClick={() => setShowDeleteModal(false)}>
-              <SvgIcon name="close" size={20} />
-            </button>
-
-            <h2 style={{ color: 'var(--cor)' }}>Delete Account?</h2>
-            <p className="muted" style={{ margin: '12px 0 24px', lineHeight: 1.6 }}>
-              Are you sure you want to permanently delete your FitPadi account? Any unclaimed cash balance from the Health Fund and streak badges will be lost.
+          <div className="mc" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '440px' }}>
+            <div
+              style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                background: '#FEE2E2',
+                color: '#DC2626',
+                display: 'grid',
+                placeItems: 'center',
+                margin: '0 auto 16px'
+              }}
+            >
+              <SvgIcon name="close" size={28} />
+            </div>
+            <h2 style={{ fontSize: '22px', marginBottom: '8px' }}>Are you sure?</h2>
+            <p className="muted" style={{ fontSize: '14px', lineHeight: 1.5, marginBottom: '20px' }}>
+              Deleting your account will forfeit your current 7-day streak, unspent points, and Health Fund eligibility.
             </p>
-
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-              <button className="btn sm o" onClick={() => setShowDeleteModal(false)}>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                className="pill-btn pill-outline"
+                style={{ flex: 1 }}
+                onClick={() => setShowDeleteModal(false)}
+              >
                 Cancel
               </button>
               <button
-                className="btn sm"
-                style={{ background: 'var(--cor)' }}
+                className="pill-btn pill-locked"
+                style={{ flex: 1 }}
                 onClick={handleDeleteAccount}
               >
-                Permanently Delete
+                Confirm Delete
               </button>
             </div>
           </div>
@@ -176,4 +208,3 @@ export default function SettingsPage() {
     </div>
   );
 }
-

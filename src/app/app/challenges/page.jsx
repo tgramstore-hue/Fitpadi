@@ -39,10 +39,10 @@ export default function ChallengesPage() {
     : activeLeaderboard.map((r, idx) => ({ ...r, rank: idx + 1 }));
 
   return (
-    <div className="gr">
-      {/* 4 KPIs with brand colors */}
+    <div className="gr" style={{ paddingBottom: '90px' }}>
+      {/* 4 KPIs with Flat Squircle Icons */}
       <div className="kp s3" style={{ '--c': '#0F766E' }}>
-        <span className="ki">
+        <span className="flat-sq" style={{ background: 'rgba(255,255,255,.22)', width: '44px', height: '44px' }}>
           <SvgIcon name="trophy" size={22} />
         </span>
         <div>
@@ -53,7 +53,7 @@ export default function ChallengesPage() {
       </div>
 
       <div className="kp s3" style={{ '--c': '#16A34A' }}>
-        <span className="ki">
+        <span className="flat-sq" style={{ background: 'rgba(255,255,255,.22)', width: '44px', height: '44px' }}>
           <SvgIcon name="coin" size={22} />
         </span>
         <div>
@@ -64,7 +64,7 @@ export default function ChallengesPage() {
       </div>
 
       <div className="kp s3" style={{ '--c': '#2563EB' }}>
-        <span className="ki">
+        <span className="flat-sq" style={{ background: 'rgba(255,255,255,.22)', width: '44px', height: '44px' }}>
           <SvgIcon name="act" size={22} />
         </span>
         <div>
@@ -75,7 +75,7 @@ export default function ChallengesPage() {
       </div>
 
       <div className="kp s3" style={{ '--c': '#EF5A3C' }}>
-        <span className="ki">
+        <span className="flat-sq" style={{ background: 'rgba(255,255,255,.22)', width: '44px', height: '44px' }}>
           <SvgIcon name="flame" size={22} />
         </span>
         <div>
@@ -88,12 +88,9 @@ export default function ChallengesPage() {
       {!showFullLeaderboard ? (
         <>
           {/* Challenges List (span 8) */}
-          <div className="pn s8">
-            <div className="pt">
-              <div>
-                <h3>Community challenges</h3>
-                <small className="muted">Compete in sprints to earn verified Health Fund points</small>
-              </div>
+          <div className="s8">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', padding: '0 4px' }}>
+              <span className="sec-label" style={{ margin: 0 }}>ACTIVE CHALLENGES</span>
               <div className="cps">
                 {['daily', 'weekly', 'all'].map((tab) => (
                   <button
@@ -107,193 +104,202 @@ export default function ChallengesPage() {
               </div>
             </div>
 
-            <div className="pgd" style={{ marginTop: '16px' }}>
-              {filteredChallenges.map(([c, j]) => {
-                const isJoined = joinedChallenges[j];
-                const pct = isJoined ? c[5] : 0;
-                return (
-                  <div key={j} className="pcd" style={{ cursor: 'default' }}>
-                    <div className="im" style={{ height: '96px' }}>
-                      <SceneSvg type={c[1]} color={c[6]} />
-                    </div>
-                    <div className="bd">
-                      <b style={{ fontSize: '16px', display: 'block' }}>{c[2]}</b>
-                      <small style={{ display: 'block', margin: '3px 0 10px' }}>
-                        {c[3]} joined · {c[4]} points
-                      </small>
-                      <div className="pgb">
-                        <i style={{ width: `${pct}%` }} />
+            <div className="card-box">
+              <div className="pgd" style={{ marginTop: 0 }}>
+                {filteredChallenges.map(([c, j]) => {
+                  const isJoined = joinedChallenges[j];
+                  const pct = isJoined ? c[5] : 0;
+                  return (
+                    <div key={j} className="pcd" style={{ cursor: 'default' }}>
+                      <div className="im" style={{ height: '96px' }}>
+                        <SceneSvg type={c[1]} color={c[6]} />
                       </div>
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          marginTop: '10px',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <small>{isJoined ? `${pct}% complete` : 'Not started'}</small>
-                        <button
-                          className={`btn sm ${isJoined ? 'o' : ''}`}
-                          onClick={() => joinChallenge(j)}
+                      <div className="bd">
+                        <b style={{ fontSize: '16px', display: 'block', color: 'var(--tx)' }}>{c[2]}</b>
+                        <small style={{ display: 'block', margin: '3px 0 10px' }}>
+                          {c[3]} joined · <b style={{ color: '#D97706' }}>{c[4]} points</b>
+                        </small>
+                        <div className="pgb">
+                          <i style={{ width: `${pct}%` }} />
+                        </div>
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            marginTop: '12px',
+                            alignItems: 'center'
+                          }}
                         >
-                          {isJoined ? 'Active ✓' : 'Join'}
-                        </button>
+                          <small className="muted">{isJoined ? `${pct}% complete` : 'Not started'}</small>
+                          {isJoined ? (
+                            <span className="pill-btn pill-done" style={{ height: '32px', fontSize: '13px' }}>
+                              Active ✓
+                            </span>
+                          ) : (
+                            <button
+                              className="pill-btn pill-blue"
+                              style={{ height: '32px', fontSize: '13px' }}
+                              onClick={() => joinChallenge(j)}
+                            >
+                              Join
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          {/* Normal Compact Leaderboard Card (span 4) */}
-          <div className="pn s4">
-            <div className="pt">
-              <div>
-                <h3>Leaderboard</h3>
-                <small className="muted">Top performers</small>
-              </div>
+          {/* Normal Compact Leaderboard Card (span 4 - Image 6) */}
+          <div className="s4">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', padding: '0 4px' }}>
+              <span className="sec-label" style={{ margin: 0 }}>LEADERBOARD</span>
               <button
                 className="lk"
-                style={{ fontSize: '13px', fontWeight: 600, color: 'var(--g)', background: 'none', border: '0', cursor: 'pointer' }}
+                style={{ fontSize: '13px', fontWeight: 700, color: 'var(--g)', background: 'none', border: '0', cursor: 'pointer' }}
                 onClick={() => setShowFullLeaderboard(true)}
               >
                 Top 50 &rarr;
               </button>
             </div>
 
-            {/* Filter pills */}
-            <div className="cps" style={{ marginBottom: '14px' }}>
-              {['global', 'country', 'friends'].map((k) => (
-                <button
-                  key={k}
-                  className={`cp ${lbFilter === k ? 'on' : ''}`}
-                  onClick={() => setLbFilter(k)}
-                >
-                  {k === 'global' ? 'Global' : k === 'country' ? 'Nigeria' : 'Friends'}
-                </button>
-              ))}
-            </div>
-
-            {/* Top 4 Competitors */}
-            <div id="lb" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {compactEntries.map((r, j) => {
-                const isMe = r[0].includes('(you)');
-                return (
-                  <div
-                    key={j}
-                    className={`lr ${isMe ? 'me' : ''}`}
-                    style={{
-                      background: isMe ? 'var(--mint)' : 'var(--wh)',
-                      border: isMe ? '1.5px solid var(--g)' : '1px solid var(--ln)',
-                      padding: '10px 12px'
-                    }}
+            <div className="card-box">
+              {/* Filter pills */}
+              <div className="cps" style={{ marginBottom: '14px' }}>
+                {['global', 'country', 'friends'].map((k) => (
+                  <button
+                    key={k}
+                    className={`cp ${lbFilter === k ? 'on' : ''}`}
+                    onClick={() => setLbFilter(k)}
                   >
-                    <span className={`rk r${j + 1}`}>{j + 1}</span>
-                    <span className="av2" style={{ background: COL[j % 5] }}>
-                      {r[0][0]}
+                    {k === 'global' ? 'Global' : k === 'country' ? 'Nigeria' : 'Friends'}
+                  </button>
+                ))}
+              </div>
+
+              {/* Top 4 Competitors with Laurel Medals (Image 6) */}
+              <div id="lb" style={{ display: 'flex', flexDirection: 'column' }}>
+                {compactEntries.map((r, j) => {
+                  const isMe = r[0].includes('(you)');
+                  const rank = j + 1;
+                  const medal = rank === 1 ? '🥇 (1)' : rank === 2 ? '🥈 (2)' : rank === 3 ? '🥉 (3)' : `${rank}`;
+                  return (
+                    <div
+                      key={j}
+                      className="card-row"
+                      style={{
+                        background: isMe ? 'var(--mint)' : 'transparent',
+                        margin: isMe ? '0 -8px' : 0,
+                        padding: isMe ? '10px 8px' : '11px 0',
+                        borderRadius: isMe ? '14px' : 0
+                      }}
+                    >
+                      {/* Laurel Rank */}
+                      <span
+                        style={{
+                          width: rank <= 3 ? '46px' : '30px',
+                          fontSize: rank <= 3 ? '15px' : '14px',
+                          fontWeight: 800,
+                          color: rank === 1 ? '#CA8A04' : rank === 2 ? '#64748B' : rank === 3 ? '#B45309' : 'var(--sub)',
+                          textAlign: 'center',
+                          flex: 'none'
+                        }}
+                      >
+                        {medal}
+                      </span>
+
+                      {/* Squircle Avatar */}
+                      <div
+                        className="flat-sq"
+                        style={{
+                          width: '38px',
+                          height: '38px',
+                          borderRadius: '12px',
+                          background: COL[j % COL.length],
+                          fontSize: '14px'
+                        }}
+                      >
+                        {r[0][0]}
+                      </div>
+
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <b style={{ fontSize: '14px', display: 'block', color: 'var(--tx)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {r[0]} <span style={{ color: '#16A34A', fontSize: '10px' }}>●</span>
+                        </b>
+                        <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
+                          {r[1]} · Verified competitor
+                        </small>
+                      </div>
+
+                      <b style={{ color: 'var(--g)', fontSize: '14px' }}>{r[2].toLocaleString()}</b>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Dedicated "Your Ranking" Row */}
+              {myEntry && myIndex >= 4 && (
+                <div
+                  style={{
+                    marginTop: '14px',
+                    padding: '12px 14px',
+                    borderRadius: '16px',
+                    background: 'var(--mint)',
+                    border: '1.5px solid var(--g)'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--gd)' }}>
+                      Your Ranking
                     </span>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <b style={{ fontSize: '14px', display: 'block', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {r[0]}
-                      </b>
+                    <span className="pill-tag" style={{ background: 'var(--wh)', fontSize: '11px' }}>
+                      Rank #{myRank} of {activeLeaderboard.length}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div className="num-badge">#{myRank}</div>
+                    <div style={{ flex: 1 }}>
+                      <b style={{ fontSize: '14px' }}>{myEntry[0]}</b>
                       <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
-                        {r[1]} · Active
+                        {myEntry[1]} · Top 10% standing
                       </small>
                     </div>
-                    <b style={{ color: 'var(--g)', fontSize: '14px' }}>{r[2].toLocaleString()}</b>
+                    <b style={{ color: 'var(--gd)', fontSize: '15px' }}>
+                      {myEntry[2].toLocaleString()} pts
+                    </b>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              )}
 
-            {/* Dedicated "Your Ranking" Card if you are not in top 4 */}
-            {myEntry && myIndex >= 4 && (
-              <div
-                style={{
-                  marginTop: '14px',
-                  padding: '12px 14px',
-                  borderRadius: '16px',
-                  background: 'var(--mint)',
-                  border: '1.5px solid var(--g)'
-                }}
+              {/* View More Button (Top 50) */}
+              <button
+                className="pill-btn pill-blue"
+                style={{ width: '100%', marginTop: '16px', justifyContent: 'center' }}
+                onClick={() => setShowFullLeaderboard(true)}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--gd)' }}>
-                    Your Ranking
-                  </span>
-                  <span className="pp2" style={{ background: 'var(--wh)', fontSize: '11px' }}>
-                    Rank #{myRank} of {activeLeaderboard.length}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span
-                    style={{
-                      width: '28px',
-                      height: '28px',
-                      borderRadius: '50%',
-                      background: 'var(--g)',
-                      color: '#fff',
-                      display: 'grid',
-                      placeItems: 'center',
-                      fontWeight: 700,
-                      fontSize: '13px'
-                    }}
-                  >
-                    #{myRank}
-                  </span>
-                  <div style={{ flex: 1 }}>
-                    <b style={{ fontSize: '14px' }}>{myEntry[0]}</b>
-                    <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
-                      {myEntry[1]} · Top 10% performer
-                    </small>
-                  </div>
-                  <b style={{ color: 'var(--gd)', fontSize: '15px' }}>
-                    {myEntry[2].toLocaleString()} pts
-                  </b>
-                </div>
-              </div>
-            )}
-
-            {/* View More Button (Top 50) */}
-            <button
-              className="btn sm o"
-              style={{ width: '100%', marginTop: '16px', justifyContent: 'center' }}
-              onClick={() => setShowFullLeaderboard(true)}
-            >
-              View full leaderboard (Top 50) &rarr;
-            </button>
+                View full leaderboard (Top 50) &rarr;
+              </button>
+            </div>
           </div>
         </>
       ) : (
-        /* Full Leaderboard View (Top 50) */
-        <div className="pn s12">
-          <div
-            className="pt"
-            style={{
-              flexWrap: 'wrap',
-              gap: '12px',
-              paddingBottom: '16px',
-              borderBottom: '1px solid var(--ln)'
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <button
-                  className="btn sm o"
-                  onClick={() => setShowFullLeaderboard(false)}
-                  style={{ height: '36px', padding: '0 14px' }}
-                >
-                  &larr; Back to Challenges
-                </button>
-                <h3 style={{ fontSize: '22px', margin: 0 }}>
-                  Full Leaderboard — Top 50
-                </h3>
-              </div>
-              <small className="muted" style={{ display: 'block', marginTop: '4px' }}>
-                Live member standings powered by verified Health Fund activity
-              </small>
+        /* Full Leaderboard View (Top 50 - Image 6) */
+        <div className="s12">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', padding: '0 4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <button
+                className="pill-btn pill-outline"
+                onClick={() => setShowFullLeaderboard(false)}
+                style={{ height: '36px', padding: '0 14px' }}
+              >
+                &larr; Back
+              </button>
+              <h2 style={{ fontSize: '24px', margin: 0, letterSpacing: '-0.02em' }}>
+                TOP 50 LEADERBOARD
+              </h2>
             </div>
 
             {/* Scope tabs */}
@@ -304,196 +310,165 @@ export default function ChallengesPage() {
                   className={`cp ${lbFilter === k ? 'on' : ''}`}
                   onClick={() => setLbFilter(k)}
                 >
-                  {k === 'global' ? 'Global (Top 50)' : k === 'country' ? 'Nigeria (Top 50)' : 'Friends (Top 50)'}
+                  {k === 'global' ? 'Global' : k === 'country' ? 'Nigeria' : 'Friends'}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Sticky Your Ranking Bar */}
-          {myEntry && (
+          <div className="card-box">
+            {/* Sticky Your Ranking Bar */}
+            {myEntry && (
+              <div
+                style={{
+                  marginBottom: '18px',
+                  padding: '16px 20px',
+                  borderRadius: '18px',
+                  background: 'linear-gradient(135deg, var(--mint), #E0F2FE)',
+                  border: '2px solid var(--g)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '14px'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div className="num-badge" style={{ width: '44px', height: '44px', fontSize: '18px' }}>
+                    #{myRank}
+                  </div>
+                  <div>
+                    <b style={{ fontSize: '17px', color: 'var(--tx)' }}>{myEntry[0]} (Your Position)</b>
+                    <div className="muted" style={{ fontSize: '13px', marginTop: '2px' }}>
+                      {myEntry[1]} · Next milestone: Rank #{Math.max(1, myRank - 1)} (+
+                      {(activeLeaderboard[Math.max(0, myIndex - 1)][2] - myEntry[2]).toLocaleString()} pts needed)
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span className="pill-tag" style={{ background: '#fff', padding: '6px 14px', fontSize: '13px' }}>
+                    🔥 7-Day Active Streak
+                  </span>
+                  <b style={{ fontSize: '20px', color: 'var(--gd)' }}>
+                    {myEntry[2].toLocaleString()} pts
+                  </b>
+                </div>
+              </div>
+            )}
+
+            {/* Search bar inside leaderboard */}
+            <div style={{ marginBottom: '16px', maxWidth: '320px' }}>
+              <div className="bsr" style={{ height: '40px' }}>
+                <SvgIcon name="search" size={16} />
+                <input
+                  placeholder="Search competitor name..."
+                  value={searchCompetitor}
+                  onChange={(e) => setSearchCompetitor(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* 50-person Leaderboard List */}
             <div
               style={{
-                margin: '18px 0',
-                padding: '16px 20px',
-                borderRadius: '18px',
-                background: 'linear-gradient(135deg, var(--mint), #E0F2FE)',
-                border: '2px solid var(--g)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '14px'
+                flexDirection: 'column',
+                maxHeight: '680px',
+                overflowY: 'auto',
+                paddingRight: '6px'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '14px',
-                    background: 'var(--g)',
-                    color: '#fff',
-                    display: 'grid',
-                    placeItems: 'center',
-                    fontWeight: 800,
-                    fontSize: '18px'
-                  }}
-                >
-                  #{myRank}
-                </div>
-                <div>
-                  <b style={{ fontSize: '17px', color: 'var(--tx)' }}>{myEntry[0]} (Your Position)</b>
-                  <div className="muted" style={{ fontSize: '13px', marginTop: '2px' }}>
-                    {myEntry[1]} · Next milestone: Rank #{Math.max(1, myRank - 1)} (+
-                    {(activeLeaderboard[Math.max(0, myIndex - 1)][2] - myEntry[2]).toLocaleString()} pts needed)
-                  </div>
-                </div>
-              </div>
+              {fullDisplayList.map((r) => {
+                const rank = r.rank;
+                const isMe = r[0].includes('(you)');
+                const isTop3 = rank <= 3;
+                const medal = rank === 1 ? '🥇 (1)' : rank === 2 ? '🥈 (2)' : rank === 3 ? '🥉 (3)' : `${rank}`;
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span className="pp2" style={{ background: '#fff', padding: '6px 14px', fontSize: '13px' }}>
-                  🔥 7-Day Active Streak
-                </span>
-                <b style={{ fontSize: '20px', color: 'var(--gd)' }}>
-                  {myEntry[2].toLocaleString()} pts
-                </b>
-              </div>
-            </div>
-          )}
-
-          {/* Search bar inside leaderboard */}
-          <div style={{ margin: '14px 0 18px', maxWidth: '320px' }}>
-            <div className="bsr" style={{ height: '40px' }}>
-              <SvgIcon name="search" size={16} />
-              <input
-                placeholder="Search competitors in Top 50..."
-                value={searchCompetitor}
-                onChange={(e) => setSearchCompetitor(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {/* 50-person Leaderboard Table / Cards */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px',
-              maxHeight: '680px',
-              overflowY: 'auto',
-              paddingRight: '6px'
-            }}
-          >
-            {fullDisplayList.map((r) => {
-              const rank = r.rank;
-              const isMe = r[0].includes('(you)');
-              const isTop3 = rank <= 3;
-              const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : null;
-
-              return (
-                <div
-                  key={rank}
-                  className={`lr ${isMe ? 'me' : ''}`}
-                  style={{
-                    background: isMe ? 'var(--mint)' : isTop3 ? 'var(--sf)' : 'var(--wh)',
-                    border: isMe
-                      ? '2px solid var(--g)'
-                      : isTop3
-                      ? '1.5px solid rgba(22, 163, 74, 0.3)'
-                      : '1px solid var(--ln)',
-                    borderRadius: '16px',
-                    padding: '12px 18px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '14px'
-                  }}
-                >
-                  {/* Rank badge */}
-                  <span
+                return (
+                  <div
+                    key={rank}
+                    className="card-row"
                     style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '12px',
-                      background: rank === 1 ? '#FEF08A' : rank === 2 ? '#E2E8F0' : rank === 3 ? '#FFEDD5' : 'var(--sf)',
-                      color: rank === 1 ? '#854D0E' : rank === 2 ? '#475569' : rank === 3 ? '#9A3412' : 'var(--tx)',
-                      display: 'grid',
-                      placeItems: 'center',
-                      fontWeight: 800,
-                      fontSize: isTop3 ? '16px' : '14px',
-                      flex: 'none'
+                      background: isMe ? 'var(--mint)' : 'transparent',
+                      padding: '12px 10px',
+                      borderRadius: isMe ? '14px' : 0
                     }}
                   >
-                    {medal || rank}
-                  </span>
+                    {/* Laurel medal / Rank badge */}
+                    <span
+                      style={{
+                        width: isTop3 ? '48px' : '30px',
+                        fontSize: isTop3 ? '15px' : '14px',
+                        fontWeight: 800,
+                        color: rank === 1 ? '#CA8A04' : rank === 2 ? '#64748B' : rank === 3 ? '#B45309' : 'var(--sub)',
+                        textAlign: 'center',
+                        flex: 'none'
+                      }}
+                    >
+                      {medal}
+                    </span>
 
-                  {/* Avatar */}
-                  <span
-                    className="av2"
-                    style={{
-                      background: COL[(rank - 1) % COL.length],
-                      width: '38px',
-                      height: '38px',
-                      fontSize: '15px'
-                    }}
-                  >
-                    {r[0][0]}
-                  </span>
-
-                  {/* Name & country */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <b style={{ fontSize: '15px', color: isMe ? 'var(--gd)' : 'var(--tx)' }}>
-                        {r[0]}
-                      </b>
-                      {isMe && (
-                        <span
-                          style={{
-                            background: 'var(--g)',
-                            color: '#fff',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            padding: '2px 8px',
-                            borderRadius: '999px'
-                          }}
-                        >
-                          YOU
-                        </span>
-                      )}
+                    {/* Squircle Avatar */}
+                    <div
+                      className="flat-sq"
+                      style={{
+                        background: COL[(rank - 1) % COL.length],
+                        width: '40px',
+                        height: '40px',
+                        fontSize: '15px'
+                      }}
+                    >
+                      {r[0][0]}
                     </div>
-                    <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
-                      {r[1]} · Verified competitor
-                    </small>
-                  </div>
 
-                  {/* Points */}
-                  <div style={{ textAlign: 'right' }}>
-                    <b style={{ fontSize: '16px', color: isMe ? 'var(--gd)' : 'var(--tx)' }}>
-                      {r[2].toLocaleString()}
-                    </b>
-                    <small className="muted" style={{ display: 'block', fontSize: '11px' }}>
-                      points
-                    </small>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                    {/* Name & country */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <b style={{ fontSize: '15px', color: isMe ? 'var(--gd)' : 'var(--tx)' }}>
+                          {r[0]}
+                        </b>
+                        <span style={{ color: '#16A34A', fontSize: '10px' }}>●</span>
+                        {isMe && (
+                          <span className="pill-tag" style={{ background: 'var(--g)', color: '#fff', fontSize: '11px', padding: '2px 8px' }}>
+                            YOU
+                          </span>
+                        )}
+                      </div>
+                      <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
+                        {r[1]} · Verified competitor
+                      </small>
+                    </div>
 
-          <div
-            style={{
-              marginTop: '16px',
-              paddingTop: '14px',
-              borderTop: '1px solid var(--ln)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <small className="muted">Showing {fullDisplayList.length} of 50 active rankings</small>
-            <button className="btn sm" onClick={() => setShowFullLeaderboard(false)}>
-              Close Full View
-            </button>
+                    {/* Points */}
+                    <div style={{ textAlign: 'right' }}>
+                      <b style={{ fontSize: '16px', color: isMe ? 'var(--gd)' : 'var(--tx)' }}>
+                        {r[2].toLocaleString()}
+                      </b>
+                      <small className="muted" style={{ display: 'block', fontSize: '11px' }}>
+                        points
+                      </small>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div
+              style={{
+                marginTop: '16px',
+                paddingTop: '14px',
+                borderTop: '1px solid var(--ln)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <small className="muted">Showing {fullDisplayList.length} of 50 active rankings</small>
+              <button className="pill-btn pill-blue" onClick={() => setShowFullLeaderboard(false)}>
+                Back to Sprints
+              </button>
+            </div>
           </div>
         </div>
       )}

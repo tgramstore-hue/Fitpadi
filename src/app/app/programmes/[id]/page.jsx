@@ -19,7 +19,8 @@ export default function ProgrammeDetailPage({ params }) {
     joinedProgrammes,
     joinProgramme,
     setPreviewExercise,
-    startWorkout
+    startWorkout,
+    showToast
   } = useApp();
 
   if (!programme) return notFound();
@@ -31,34 +32,44 @@ export default function ProgrammeDetailPage({ params }) {
   return (
     <div className="pg">
       <div className="bcr">
-        <Link href="/app/programmes">&larr; Back to all programmes</Link>
+        <Link href="/app/programmes" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span>&larr;</span> Back to all programmes
+        </Link>
       </div>
 
       {/* Programme Header Card */}
-      <div style={{ background: 'var(--wh)', border: '1px solid var(--ln)', borderRadius: '28px', overflow: 'hidden', margin: '16px 0 32px', boxShadow: '0 8px 24px rgba(20,38,28,.06)' }}>
+      <div className="card-box" style={{ padding: 0, overflow: 'hidden', margin: '16px 0 28px' }}>
         <div style={{ height: '220px', position: 'relative' }}>
           <SceneSvg type={SCN[progId] || 'walk'} color={programme[4] || '#16A34A'} />
         </div>
 
-        <div style={{ padding: '32px' }}>
+        <div style={{ padding: '28px 32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
+              <div className="sec-label" style={{ marginBottom: '6px' }}>PATHWAY CURRICULUM</div>
               <span className="tg">{programme[2]}</span>
-              <h1 style={{ fontSize: '32px', margin: '8px 0 10px' }}>{programme[1]}</h1>
-              <p className="lead" style={{ fontSize: '16px', maxWidth: '640px' }}>
+              <h1 style={{ fontSize: '30px', margin: '8px 0 10px', letterSpacing: '-0.02em' }}>{programme[1]}</h1>
+              <p className="lead" style={{ fontSize: '15px', maxWidth: '640px', lineHeight: 1.5 }}>
                 {programme[3]}
               </p>
             </div>
 
             <div>
               {!isJoined ? (
-                <button className="btn" onClick={() => joinProgramme(progId)}>
+                <button
+                  className="pill-btn pill-blue"
+                  style={{ height: '42px', padding: '0 24px' }}
+                  onClick={() => {
+                    joinProgramme(progId);
+                    showToast('Enrolled in programme! +25 Health Fund points');
+                  }}
+                >
                   Enroll in Programme Free
                 </button>
               ) : (
                 <div style={{ background: 'var(--mint)', color: 'var(--gd)', padding: '10px 20px', borderRadius: '999px', fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <SvgIcon name="chk" size={18} />
-                  Currently Active
+                  <div className="chk-circle" style={{ width: '20px', height: '20px', fontSize: '12px' }}>✓</div>
+                  Currently Enrolled &amp; Active
                 </div>
               )}
             </div>
@@ -66,74 +77,65 @@ export default function ProgrammeDetailPage({ params }) {
 
           <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--ln)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
-              <span>Programme Progress</span>
-              <span style={{ color: 'var(--g)' }}>{progressPct}% Completed</span>
+              <span className="sec-label">PROGRAMME COMPLETION</span>
+              <span style={{ color: 'var(--g)', fontWeight: 800 }}>{progressPct}% Completed</span>
             </div>
             <div className="pgb" style={{ height: '10px' }}>
               <i style={{ width: `${progressPct}%` }} />
             </div>
-            <small className="muted" style={{ display: 'block', marginTop: '6px' }}>
-              {doneLessons.length} of {LES.length} lessons finished
+            <small className="muted" style={{ display: 'block', marginTop: '6px', fontSize: '13px' }}>
+              {doneLessons.length} of {LES.length} daily syllabus lessons completed
             </small>
           </div>
         </div>
       </div>
 
       {/* Two columns: Lessons Syllabus & Recommended Routine */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr .8fr', gap: '28px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
         {/* Lessons List */}
-        <div className="pn">
-          <div className="pt">
-            <h3>Syllabus &amp; Daily Lessons</h3>
-            <small className="muted">Click checkbox to mark done</small>
+        <div className="card-box">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+            <div>
+              <div className="sec-label">SYLLABUS</div>
+              <h3 style={{ fontSize: '20px', margin: '2px 0 0' }}>Daily Lessons</h3>
+            </div>
+            <small className="muted" style={{ fontSize: '12px' }}>Tap check to complete</small>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {LES.map((lessonName, idx) => {
               const isDone = doneLessons.includes(idx);
               return (
                 <div
                   key={idx}
+                  className="card-row"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    padding: '16px',
+                    padding: '12px 14px',
                     borderRadius: '16px',
                     background: isDone ? 'var(--mint)' : 'var(--sf)',
                     border: `1px solid ${isDone ? 'rgba(22,163,74,.3)' : 'var(--ln)'}`,
-                    transition: 'all .2s'
+                    cursor: 'pointer'
                   }}
+                  onClick={() => toggleLesson(progId, idx)}
                 >
-                  <button
-                    onClick={() => toggleLesson(progId, idx)}
-                    style={{
-                      width: '28px',
-                      height: '28px',
-                      borderRadius: '8px',
-                      border: `2px solid ${isDone ? 'var(--g)' : 'var(--sub)'}`,
-                      background: isDone ? 'var(--g)' : 'transparent',
-                      color: '#fff',
-                      display: 'grid',
-                      placeItems: 'center',
-                      cursor: 'pointer',
-                      flex: 'none'
-                    }}
-                    aria-label={isDone ? 'Mark incomplete' : 'Mark complete'}
-                  >
-                    {isDone && <SvgIcon name="chk" size={16} />}
-                  </button>
+                  {isDone ? (
+                    <div className="chk-circle">✓</div>
+                  ) : (
+                    <div className="num-badge" style={{ width: '28px', height: '28px', fontSize: '12px' }}>
+                      {idx + 1}
+                    </div>
+                  )}
 
-                  <div style={{ flex: 1 }}>
-                    <small className="muted" style={{ display: 'block', fontSize: '12px' }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <small className="muted" style={{ display: 'block', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Lesson {idx + 1}
                     </small>
-                    <b style={{ fontSize: '16px', color: isDone ? 'var(--gd)' : 'var(--tx)' }}>
+                    <b style={{ fontSize: '15px', color: isDone ? 'var(--gd)' : 'var(--tx)', display: 'block' }}>
                       {lessonName}
                     </b>
                   </div>
 
-                  <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--g)' }}>
+                  <span className="pill-tag" style={{ background: isDone ? '#22C55E' : 'rgba(0,122,255,0.1)', color: isDone ? '#fff' : '#007AFF' }}>
                     +15 pts
                   </span>
                 </div>
@@ -142,44 +144,56 @@ export default function ProgrammeDetailPage({ params }) {
           </div>
         </div>
 
-        {/* Recommended Exercises sidebar */}
-        <div className="pn" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="pt">
-            <h3>Key Exercises</h3>
-            <small className="muted">Technique guide</small>
-          </div>
-
-          <p className="muted" style={{ fontSize: '14px', marginBottom: '16px' }}>
-            Practice these core movements to maximize your benefits in this programme:
+        {/* Recommended Key Exercises Sidebar */}
+        <div className="card-box" style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="sec-label">PRACTICE MOVEMENTS</div>
+          <h3 style={{ fontSize: '20px', margin: '2px 0 8px' }}>Key Technique Exercises</h3>
+          <p className="muted" style={{ fontSize: '13px', marginBottom: '16px', lineHeight: 1.4 }}>
+            Practice these core biomechanical movements to get the maximum health impact from this programme:
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {LIB.slice(0, 4).map((ex, i) => (
               <div
                 key={i}
-                className="lr"
-                style={{ cursor: 'pointer', padding: '10px 12px', borderRadius: '12px', background: 'var(--sf)' }}
+                className="card-row"
+                style={{
+                  cursor: 'pointer',
+                  padding: '12px 14px',
+                  borderRadius: '16px',
+                  background: 'var(--sf)',
+                  border: '1px solid var(--ln)'
+                }}
                 onClick={() => setPreviewExercise(ex)}
+                title="Click to view technique & form steps"
               >
-                <div className="lt">
+                <div
+                  className={`flat-sq ${
+                    i === 0 ? 'sq-blue' : i === 1 ? 'sq-orange' : i === 2 ? 'sq-green' : 'sq-purple'
+                  }`}
+                  style={{ width: '38px', height: '38px', borderRadius: '12px' }}
+                >
                   <SvgIcon name="dumb" size={18} />
                 </div>
-                <div style={{ flex: 1 }}>
-                  <b style={{ fontSize: '14px', display: 'block' }}>{ex[0]}</b>
-                  <small className="muted" style={{ fontSize: '12px' }}>{ex[1]} · {ex[3]}</small>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <b style={{ fontSize: '14px', display: 'block', color: 'var(--tx)' }}>{ex[0]}</b>
+                  <small className="muted" style={{ fontSize: '12px', display: 'block' }}>{ex[1]} · {ex[3]}</small>
                 </div>
-                <span className="lk">Preview &rarr;</span>
+                <span style={{ color: 'var(--g)', fontSize: '13px', fontWeight: 700 }}>Preview &rarr;</span>
               </div>
             ))}
           </div>
 
           <div style={{ marginTop: 'auto', paddingTop: '24px' }}>
             <button
-              className="btn"
-              style={{ width: '100%' }}
-              onClick={() => startWorkout(LIB.slice(0, 3).map((e) => e[0]))}
+              className="pill-btn pill-blue"
+              style={{ width: '100%', height: '42px' }}
+              onClick={() => {
+                startWorkout(LIB.slice(0, 4).map((e) => e[0]));
+                showToast('Starting guided practice routine!');
+              }}
             >
-              Start Practice Session
+              Start Practice Session (4 moves)
             </button>
           </div>
         </div>
@@ -187,4 +201,3 @@ export default function ProgrammeDetailPage({ params }) {
     </div>
   );
 }
-
